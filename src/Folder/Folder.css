@@ -1,0 +1,14 @@
+.folder{
+    text-decoration: none;
+    display: inline-block;
+    padding: 1rem;
+    border: 2px black solid;
+    margin: 5px;
+    width: 90%;
+    color: black;
+}
+
+.active{
+    border: 2pt blue solid;
+    box-shadow: 2px 5px 3px 5px #888888
+}
