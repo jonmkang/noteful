@@ -9,11 +9,12 @@ import FolderSidebar from './FolderSidebar/FolderSidebar';
 import NoteSidebar from './NoteSidebar/NoteSidebar';
 import NoteList from './NoteList/NoteList';
 import NoteContent from './NoteContent/NoteContent';
+import Context from './Context'
 
 class App extends React.Component {
   state = {
-    folders: Store.folders,
-    notes: Store.notes,
+    folders: [],
+    notes: [],
     selectedFolder: null,
     selectedNote: null
   }
@@ -30,6 +31,13 @@ class App extends React.Component {
     })
   }
 
+  deleteNote = noteId => {
+    const newNotes = this.state.notes.filter(note => note.id !== noteId)
+    this.setState({
+      notes: newNotes
+    })
+  }
+
   selectFolder = folder => {
     this.setState({
       selectedFolder: folder
@@ -42,55 +50,104 @@ class App extends React.Component {
     })
   }
 
+  componentDidMount(){
+    fetch((`http://localhost:9090/folders`), {
+      method: 'GET',
+      headers: {
+        'context-type': 'application/json'
+      }
+    })
+    .then(res => {
+      if (!res.ok) {
+        // get the error message from the response,
+        return res.json().then(error => {
+          // then throw it
+          throw error
+        })
+      }
+      return res.json()
+    })
+    .then(data => {
+      this.setState({
+        folders: data
+      })
+    })
+    .catch(error => {
+      console.error(error)
+    })
+
+    fetch((`http://localhost:9090/notes`), {
+      method: 'GET',
+      headers: {
+        'context-type': 'application/json'
+      }
+    })
+    .then(res => {
+      if (!res.ok) {
+        // get the error message from the response,
+        return res.json().then(error => {
+          // then throw it
+          throw error
+        })
+      }
+      return res.json()
+    })
+    .then(data => {
+      this.setState({
+        notes: data
+      })
+    })
+    .catch(error => {
+      console.error(error)
+    })
+
+
+
+  }
+
   render(){
+    const contextValue = {
+      notes: this.state.notes,
+      folders: this.state.folders,
+      addNote: this.addNote,
+      deleteNote: this.deleteNote,
+      selectFolder: this.selectFolder,
+      selectedNote: this.selectedNote,
+      selectedFolder: this.state.selectedFolder,
+    }
+
     return (
       <main className='App'>
+        <Context.Provider value={contextValue}>
+          <Nav folders={this.state.folders} notes={this.state.notes}/>
+          <Link className="homePage" to='/'>Noteful</Link>
 
-        <Nav folders={this.state.folders} notes={this.state.notes}/>
-        <Link className="homePage" to='/'>Noteful</Link>
-
-        <div className='content'>
-          <Route exact path='/' 
-            render={() => <MainSidebar 
-                              selectFolder={this.selectFolder}  
-                              folders={this.state.folders} 
-                              notes={this.state.notes}/>} 
-            />
-
-          <Route path='/folder/:folderId'
-            render={() => <FolderSidebar 
-                              folders={this.state.folders} 
-                              selectFolder={this.selectFolder} 
-                              selectedFolder={this.state.selectedFolder}/>} 
+          <div className='content'>
+            <Route exact path='/' 
+              component={MainSidebar}
               />
-          <Route path='/note/:noteId'
-            render={() => <NoteSidebar 
-                              folders={this.state.folders} 
-                              notes={this.state.notes}/>} 
-            />
 
-          <Route exact path='/' 
-          render={() => <MainNoteList 
-                              notes={this.state.notes} 
-                              addNote={this.addNote} 
-                              selectedFolder={this.state.selectedFolder} 
-                              selectFolder={this.selectFolder} />} 
-            />
-
-          <Route path='/folder/:folderId'
-            render={() => <NoteList 
-                              notes={this.state.notes} 
-                              selectedFolder={this.state.selectedFolder} 
-                              selectFolder={this.selectFolder} />} 
-            />
-
-          <Route path='/note/:noteId'
-            render={() => <NoteContent 
-                              notes={this.state.notes} 
-                              selectedFolder={this.state.selectedFolder} 
-                              selectFolder={this.selectFolder} />} 
+            <Route path='/folder/:folderId'
+              component={FolderSidebar} 
               />
-        </div>
+
+            <Route path='/note/:noteId'
+              component={NoteSidebar}
+              />
+
+            <Route exact path='/' 
+              component={MainNoteList}
+              />
+
+            <Route path='/folder/:folderId'
+              component={NoteList} 
+              />
+
+            <Route path='/note/:noteId'
+              component={NoteContent} 
+                />
+          </div>
+        </Context.Provider>
       </main>
     )
   }

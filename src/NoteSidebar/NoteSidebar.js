@@ -1,18 +1,26 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
 import './NoteSidebar.css';
+import Context from '../Context';
 
 class NoteSidebar extends React.Component{
+    static contextType = Context;
+
     render(){
-        const folderId = this.props.notes.find(note => note.id === this.props.match.params.noteId).folderId
-        const folderNum = this.props.folders.findIndex(folder => folder.id === folderId)
+        const { notes, folders } = this.context;
+        const folderId = (this.props.match.params.noteId) ? notes.find(note => note.id === this.props.match.params.noteId).folderId : '0'
+        const folderNum = folders.findIndex(folder => folder.id === folderId)
         return (
-            <div className='sidebar'>
-                <button className='return' onClick={() => this.props.history.goBack()}>Click to return</button>
-                Folder {folderNum+1}
-            </div>
+            <Context.Consumer>
+                {(context) => (
+                    <div className='sidebar'>
+                        <button className='return' onClick={() => this.props.history.goBack()}>Click to return</button>
+                        Folder {folderNum+1}
+                    </div>
+                )}
+            </Context.Consumer>
+            
         )
     }
 }
 
-export default withRouter(NoteSidebar);
+export default NoteSidebar;

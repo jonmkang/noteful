@@ -1,3 +1,9 @@
 .noteContent{
     margin: 2rem;
 }
+
+.noteName{
+    border: 2pt black solid;
+    padding: 10px;
+    margin: 10px;
+}

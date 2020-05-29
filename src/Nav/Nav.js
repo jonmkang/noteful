@@ -17,7 +17,6 @@ class Nav extends React.Component{
                     />
                 <Route path='/note'
                     render={({ history }) => {
-                        console.log(history)
                         return <div className='pageName'>Noteful Folder Page /note/</div>
                     }}
                     />

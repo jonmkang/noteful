@@ -1,20 +1,28 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
 import './NoteList.css';
 import Note from '../Note/Note';
+import Context from '../Context';
+
 
 class NoteList extends React.Component{
+    static contextType = Context;
+    
 
     render(){
-        const notesInFolder = this.props.notes.filter(note => note.folderId === this.props.match.params.folderId)
-        console.log(notesInFolder)
+        const { notes, folder } = this.context
+        const notesInFolder = notes.filter(note => note.folderId === this.props.match.params.folderId)
         const listOfNotes = notesInFolder.map(note => <Note id={note.id} name={note.name}/>)
         return(
-            <div className='notes'>
-                {listOfNotes}
-            </div>
+            <Context.Consumer>
+                {(context) => (
+                    <div className='notes'>
+                        {listOfNotes}
+                    </div>
+                )}
+            </Context.Consumer>
+            
         )
     }
 }
 
-export default withRouter(NoteList);
+export default NoteList;

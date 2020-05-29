@@ -1,19 +1,27 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
 import Folder from '../Folder/Folder';
 import './FolderSidebar.css';
+import Context from '../Context';
+
 
 class FolderSidebar extends React.Component{
+    static contextType = Context; 
+
     render(){
-        const folders = this.props.folders.map(folder => <Folder name={folder.name} id={folder.id} key={folder.name+folder.id} />)
-        console.log(this.props)
+        const { folders } = this.context;
+        const foldersToShow = folders.map(folder => <Folder name={folder.name} id={folder.id} key={folder.name+folder.id} />)
+
         return (
-            <div className='sidebar'>
-                {folders}
-                <button className='return' onClick={() => this.props.history.push('/')}>Click to return</button>
-            </div>
+            <Context.Consumer>
+                {(context) => (
+                    <div className='sidebar'>
+                    {foldersToShow}
+                    <button className='return' onClick={() => this.props.history.push('/')}>Click to return</button>
+                </div>
+                )}
+            </Context.Consumer>
         )
     }
 }
 
-export default withRouter(FolderSidebar);
+export default FolderSidebar;

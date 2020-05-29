@@ -1,12 +1,14 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import './Folder.css'
+import './Folder.css';
+import Context from '../Context';
 
 class Folder extends React.Component{
+    static contextType = Context;
 
     render(){
         return (
-                <NavLink className='folder' to={`/folder/${this.props.id}`}>{this.props.name}</NavLink>
+            <NavLink className='folder' to={`/folder/${this.props.id}`}>{this.props.name}</NavLink>      
         )
     }
 }

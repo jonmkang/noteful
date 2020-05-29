@@ -1,21 +1,26 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
-import { getDefaultNormalizer } from '@testing-library/react';
-import Note from '../Note/Note'
 import './NoteContent.css'
+import Context from '../Context'
+import Note from '../Note/Note'
 
 class NoteContent extends React.Component{
+    static contextType = Context;
 
     render(){
-        console.log(this.props)
-        const noteToShow = this.props.notes.find(note => note.id === this.props.match.params.noteId)
+        const { notes } = this.context;
+        const noteToShow = notes.find(note => note.id === this.props.match.params.noteId)
         return(
-            <div className='noteContent'>
-                <Note id={noteToShow.id} name={noteToShow.name} />
-                {noteToShow.content}
-            </div>
+            <Context.Consumer>
+                {(context) => (
+                    <div className='noteContent'>
+                        <Note name={noteToShow.name} id={noteToShow.id}/>
+                        {noteToShow.content}
+                    </div>
+                )}
+            </Context.Consumer>
+            
         ) 
     }
 }
 
-export default withRouter(NoteContent);
+export default NoteContent;
