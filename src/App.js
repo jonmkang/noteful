@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css';
-import Store from './Store'
 import Nav from './Nav/Nav'
 import { Route, Link } from 'react-router-dom';
 import MainSidebar from './MainSidebar/MainSidebar';
@@ -10,8 +9,15 @@ import NoteSidebar from './NoteSidebar/NoteSidebar';
 import NoteList from './NoteList/NoteList';
 import NoteContent from './NoteContent/NoteContent';
 import Context from './Context'
+import AddFolder from './AddFolder/AddFolder';
+import AddNote from './AddNote/AddNote';
+import RenderError from './RenderError';
 
 class App extends React.Component {
+  // constructor(props){
+  //   super(props)
+  // }
+
   state = {
     folders: [],
     notes: [],
@@ -122,31 +128,52 @@ class App extends React.Component {
           <Nav folders={this.state.folders} notes={this.state.notes}/>
           <Link className="homePage" to='/'>Noteful</Link>
 
-          <div className='content'>
-            <Route exact path='/' 
-              component={MainSidebar}
-              />
+            <div className='content'>
 
-            <Route path='/folder/:folderId'
-              component={FolderSidebar} 
-              />
+                <RenderError>
+                  <Route exact path='/' 
+                    component={MainSidebar}
+                    />
+                </RenderError>
 
-            <Route path='/note/:noteId'
-              component={NoteSidebar}
-              />
+                <RenderError>
+                  <Route path='/folder/:folderId'
+                    component={FolderSidebar} 
+                    />
+                </RenderError>
 
-            <Route exact path='/' 
-              component={MainNoteList}
-              />
+                <RenderError>
+                  <Route path='/note/:noteId'
+                    component={NoteSidebar}
+                    />
+                </RenderError>
+                
+                  
+            
+                
+                        
+                <Route exact path='/' 
+                  component={MainNoteList}
+                  />
 
-            <Route path='/folder/:folderId'
-              component={NoteList} 
-              />
+                <Route path='/folder/:folderId'
+                  component={NoteList} 
+                  />
 
-            <Route path='/note/:noteId'
-              component={NoteContent} 
-                />
-          </div>
+                <Route path='/note/:noteId'
+                  component={NoteContent} 
+                    />
+
+                <Route path='/addFolder'
+                  component={AddFolder}
+                  />
+
+                <Route path='/addNote'
+                  render={(props) => <AddNote {...props} folders={this.state.folders} addNote={() => this.addNote}/>}
+                  />
+                
+              
+            </div>
         </Context.Provider>
       </main>
     )

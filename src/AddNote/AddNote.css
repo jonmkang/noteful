@@ -1,0 +1,31 @@
+.addNote{
+    border: 2pt black solid;
+    margin: .5rem;
+    padding: 10px;
+    min-height: 60vh;
+    min-width: 80vw;
+}
+
+#content{
+    min-height: 30vh;
+    min-width: 60vw;
+    margin: 1rem;
+}
+
+input{
+    border: .5pt black solid;
+    display: block;
+    width: 95%;
+}
+
+.addNote_form{
+    flex-direction: column
+}
+
+label{
+    display: block;
+}
+
+#folder{
+    margin: 4px;
+}

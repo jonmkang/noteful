@@ -1,3 +1,7 @@
 .note{
     flex-grow: 3;
 }
+
+.deleteNote{
+    float: right;
+}

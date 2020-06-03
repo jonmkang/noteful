@@ -2,11 +2,13 @@ import React from 'react';
 import Note from '../Note/Note'
 import './MainNoteList.css';
 import Context from '../Context';
+import { Link } from 'react-router-dom'
 
 class MainNoteList extends React.Component{
     static contextType = Context;
 
     render(){
+        
         const { notes } = this.context;
         const notesToShow = notes.map(note => <Note 
             name={note.name} 
@@ -19,9 +21,7 @@ class MainNoteList extends React.Component{
                 {(context) => (
                     <div className='notes'>
                     {notesToShow}
-                    <button className='addNote'>
-                        Add note
-                    </button>
+                    <Link to='/addNote' className="addNoteLink">Add Note</Link>
                 </div>
                 )}
             </Context.Consumer>

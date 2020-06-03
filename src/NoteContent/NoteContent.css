@@ -1,5 +1,6 @@
 .noteContent{
-    margin: 2rem;
+    padding: 2rem;
+    flex-grow: 3;
 }
 
 .noteName{
