@@ -69,8 +69,10 @@ class AddFolder extends Component {
                         name='folder' 
                         id='folder' 
                         placeholder="Folder 1"
+                        aria-label="Enter Folder Name"
+                        aria-required="true"
                         required/>
-                    <button type="submit">Add Folder</button>
+                    <button type="submit" aria-label="Add Folder">Add Folder</button>
                 </form>
             </section>
         )

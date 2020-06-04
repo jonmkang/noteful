@@ -56,9 +56,9 @@ class AddNote extends Component{
     }
 
     createFolders(folders) {
-        const folderList = folders.map(folder => <option value={folder.id} key={folder.id+folder.name}>{folder.name}</option>)
+        const folderList = folders.map(folder => <option aria-label={folder.name} value={folder.id} key={folder.id+folder.name}>{folder.name}</option>)
         
-        return <select name="folder" id="folder" ref="folder" form="addNote">{folderList}</select>
+        return <select name="folder" id="folder" ref="folder" form="addNote" aria-label="folders">{folderList}</select>
     }
 
     render(){
@@ -75,20 +75,27 @@ class AddNote extends Component{
                         type='text' 
                         name='note' 
                         id='note' 
-                        placeholder="New Note"
+                        placeholder="Note Title"
+                        aria-label="Note Title"
                         required/>
                     <label htmlFor="content">
                         Note Content {' '}
                     </label>
-                    <textarea id="content" name="content" placeholder="Write Content Here">
+                    <textarea 
+                        id="content" 
+                        name="content" 
+                        placeholder="Write Content Here"
+                        aria-label="Write Content Here">
 
                     </textarea>
-                    <label htmlFor="folder">
+                    <label 
+                        htmlFor="folder"
+                        aria-label="Folder to put into">
                         Select Folder to put in
                     </label>
                     {folderSelection}
                     <br/>
-                    <button type="submit">Add Note</button>
+                    <button type="submit" aria-label="Add Note">Add Note</button>
                 </form>
             </section>
         )

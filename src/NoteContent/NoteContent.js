@@ -2,7 +2,6 @@ import React from 'react';
 import './NoteContent.css'
 import Context from '../Context'
 import Note from '../Note/Note'
-import { Link } from 'react-router-dom'
 
 class NoteContent extends React.Component{
     static contextType = Context;
