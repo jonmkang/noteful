@@ -27,13 +27,13 @@ class App extends React.Component {
 
   addFolder = folder => {
     this.setState({
-      folder: [...this.state.folder, folder]
+      folders: [...this.state.folders, folder]
     })
   }
 
   addNote = note => {
     this.setState({
-      notes: [...this.state.bookmarks, note]
+      notes: [...this.state.notes, note]
     })
   }
 
@@ -165,11 +165,11 @@ class App extends React.Component {
                     />
 
                 <Route path='/addFolder'
-                  component={AddFolder}
+                  render={(props) => <AddFolder {...props} addFolder={this.addFolder}/> }
                   />
 
                 <Route path='/addNote'
-                  render={(props) => <AddNote {...props} folders={this.state.folders} addNote={() => this.addNote}/>}
+                  render={(props) => <AddNote {...props} folders={this.state.folders} addNote={this.addNote}/>}
                   />
                 
               

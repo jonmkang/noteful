@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './AddFolder.css';
+import PropTypes from 'prop-types';
 
 class AddFolder extends Component {
     constructor(props){
@@ -54,8 +55,10 @@ class AddFolder extends Component {
         return res.json()
         })
         .then(data => {
+            console.log(this.props)
             console.log(data)
             console.log('Successfully added folder: ', folderToAdd)
+            this.props.addFolder(folderToAdd)
             this.props.history.push('/')
         })
         .catch(error => {
@@ -91,5 +94,10 @@ class AddFolder extends Component {
         )
     }
 }
+
+AddFolder.propTypes = {
+    folders: PropTypes.array
+}
+
 
 export default AddFolder;
