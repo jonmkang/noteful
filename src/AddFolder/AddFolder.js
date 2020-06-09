@@ -2,6 +2,12 @@ import React, { Component } from 'react';
 import './AddFolder.css';
 
 class AddFolder extends Component {
+    constructor(props){
+        super(props)
+        this.state = {
+            hasError: false
+        }
+    }
 
     uniqueID(){
         function chr4(){
@@ -16,6 +22,9 @@ class AddFolder extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
+        this.setState({
+            hasError: false
+        })
         const { folder } = e.target;
         const newFolderId = this.uniqueID();
         console.log(folder.value)
@@ -51,6 +60,9 @@ class AddFolder extends Component {
         })
         .catch(error => {
         console.error(error)
+        this.setState({
+            hasError: true
+        })
         })
     }
 
@@ -74,6 +86,7 @@ class AddFolder extends Component {
                         required/>
                     <button type="submit" aria-label="Add Folder">Add Folder</button>
                 </form>
+                {this.state.hasError ? 'No server to add to, Try again!': null}
             </section>
         )
     }

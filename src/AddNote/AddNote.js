@@ -3,6 +3,12 @@ import "./AddNote.css";
 import PropTypes from 'prop-types';
 
 class AddNote extends Component{
+    constructor(props){
+        super(props)
+        this.state={
+            hasError: false
+        }
+    }
 
     uniqueID(){
         function chr4(){
@@ -17,6 +23,9 @@ class AddNote extends Component{
 
     handleSubmit = e => {
         e.preventDefault()
+        this.setState({
+            hasError: false
+        })
         const { note, content } = e.target;
         const newNoteId = this.uniqueID();
         const noteToAdd = {
@@ -52,6 +61,9 @@ class AddNote extends Component{
         })
         .catch(error => {
         console.error(error)
+        this.setState({
+            hasError: true
+        })
         })
     }
 
@@ -85,7 +97,8 @@ class AddNote extends Component{
                         id="content" 
                         name="content" 
                         placeholder="Write Content Here"
-                        aria-label="Write Content Here">
+                        aria-label="Write Content Here"
+                        required>
 
                     </textarea>
                     <label 
@@ -97,6 +110,7 @@ class AddNote extends Component{
                     <br/>
                     <button type="submit" aria-label="Add Note">Add Note</button>
                 </form>
+                {this.state.hasError ? 'No server to add to, Try again!': null}
             </section>
         )
     }

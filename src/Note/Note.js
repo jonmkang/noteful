@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import Context from '../Context';
 import './Note.css'
+import PropTypes from 'prop-types';
 
 function deleteNoteRequest( noteId, history, callback) {
 
@@ -54,6 +55,12 @@ class Note extends React.Component{
             
         )
     }
+}
+
+Note.propTypes = {
+  name: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  folderId: PropTypes.string
 }
 
 export default withRouter(Note);
