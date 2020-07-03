@@ -6,9 +6,7 @@ import PropTypes from 'prop-types';
 
 function deleteNoteRequest( noteId, history, callback) {
 
-
-
-    fetch(`http://localhost:9090/notes/${noteId}`, {
+    fetch(`https://powerful-reef-01197.herokuapp.com/api/notes/${noteId}`, {
         method: 'DELETE',
         headers: {
             'content-type': 'application/json'
@@ -22,7 +20,6 @@ function deleteNoteRequest( noteId, history, callback) {
             throw error
           })
         }
-        console.log(history)
         return res.json()
       })
       .then(data => {
@@ -45,7 +42,7 @@ class Note extends React.Component{
             <Context.Consumer>
                 {(context) => (
                     <div className="note">
-                        <Link to={'/note/'+this.props.id}>
+                        <Link to={'/notes/'+this.props.id}>
                             {this.props.name}
                         </Link>
                         <button className='deleteNote' onClick={() => deleteNoteRequest(this.props.id, this.props.history, context.deleteNote)}>Delete Note</button>
@@ -59,8 +56,8 @@ class Note extends React.Component{
 
 Note.propTypes = {
   name: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
-  folderId: PropTypes.string
+  id: PropTypes.number,
+  folderId: PropTypes.number
 }
 
 export default withRouter(Note);

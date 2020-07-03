@@ -27,15 +27,14 @@ class AddNote extends Component{
             hasError: false
         })
         const { note, content } = e.target;
-        const newNoteId = this.uniqueID();
+        // const newNoteId = this.uniqueID();
         const noteToAdd = {
-            id: newNoteId,
             name: note.value,
             content: content.value,
-            folderId: this.refs.folder.value
+            folder_id: parseInt(this.refs.folder.value)
         };
-
-        fetch((`http://localhost:9090/notes`), {
+        console.log(noteToAdd)
+        fetch((`https://powerful-reef-01197.herokuapp.com/api/notes`), {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json'

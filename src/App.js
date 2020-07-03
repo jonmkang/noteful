@@ -57,7 +57,7 @@ class App extends React.Component {
   }
 
   componentDidMount(){
-    fetch((`http://localhost:9090/folders`), {
+    fetch((`https://powerful-reef-01197.herokuapp.com/api/folders`), {
       method: 'GET',
       headers: {
         'context-type': 'application/json'
@@ -82,7 +82,7 @@ class App extends React.Component {
       console.error(error)
     })
 
-    fetch((`http://localhost:9090/notes`), {
+    fetch((`https://powerful-reef-01197.herokuapp.com/api/notes`), {
       method: 'GET',
       headers: {
         'context-type': 'application/json'
@@ -137,13 +137,13 @@ class App extends React.Component {
                 </RenderError>
 
                 <RenderError>
-                  <Route path='/folder/:folderId'
+                  <Route path='/folders/:folderId'
                     component={FolderSidebar} 
                     />
                 </RenderError>
 
                 <RenderError>
-                  <Route path='/note/:noteId'
+                  <Route path='/notes/:noteId'
                     component={NoteSidebar}
                     />
                 </RenderError>
@@ -156,11 +156,11 @@ class App extends React.Component {
                   component={MainNoteList}
                   />
 
-                <Route path='/folder/:folderId'
+                <Route path='/folders/:folderId'
                   component={NoteList} 
                   />
 
-                <Route path='/note/:noteId'
+                <Route path='/notes/:noteId'
                   component={NoteContent} 
                     />
 

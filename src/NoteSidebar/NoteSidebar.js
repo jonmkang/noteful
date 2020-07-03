@@ -10,8 +10,7 @@ class NoteSidebar extends React.Component{
         if(notes.length === 0 || folders.length === 0){
             return (<h3>Loading notes and folders</h3>)
         }
-
-        const folderId = (this.props.match.params.noteId) ? notes.find(note => note.id === this.props.match.params.noteId).folderId : '0'
+        const folderId = (this.props.match.params.noteId) ? notes.find(note => note.id == this.props.match.params.noteId).folder_id : '0'
         const folderNum = folders.findIndex(folder => folder.id === folderId)
         return (
             <Context.Consumer>

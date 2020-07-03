@@ -12,7 +12,8 @@ class NoteContent extends React.Component{
         if(notes.length === 0){
             return (<div></div>)
         }
-        const noteToShow = notes.find(note => note.id === this.props.match.params.noteId)
+        const noteToShow = notes.find(note => note.id == this.props.match.params.noteId)
+        console.log(noteToShow)
         return(
             <Context.Consumer>
                 {(context) => (

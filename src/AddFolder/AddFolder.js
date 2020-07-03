@@ -27,15 +27,14 @@ class AddFolder extends Component {
             hasError: false
         })
         const { folder } = e.target;
-        const newFolderId = this.uniqueID();
+        // const newFolderId = this.uniqueID();
         console.log(folder.value)
         const folderToAdd = {
-            id: newFolderId,
             name: folder.value
         };
         console.log(JSON.stringify(folderToAdd))
 
-        fetch((`http://localhost:9090/folders`), {
+        fetch((`https://powerful-reef-01197.herokuapp.com/api/folders`), {
             method: 'POST',
             
             headers: {
@@ -55,7 +54,6 @@ class AddFolder extends Component {
         return res.json()
         })
         .then(data => {
-            console.log(this.props)
             console.log(data)
             console.log('Successfully added folder: ', folderToAdd)
             this.props.addFolder(folderToAdd)
