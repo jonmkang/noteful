@@ -9,7 +9,7 @@ class Folder extends React.Component{
 
     render(){
         return (
-            <NavLink className='folder' to={`/folder/${this.props.id}`}>{this.props.name}</NavLink>      
+            <NavLink className='folder' to={`/folders/${this.props.id}`}>{this.props.name}</NavLink>      
         )
     }
 }
